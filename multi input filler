@@ -1,0 +1,30 @@
+code=[]
+import pyperclip,pprint
+hi=pyperclip.paste()
+a=hi.split('\t')
+# print(a)
+# print('\n')
+j=a[0]
+code.append('''
+                      <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="single-team text-center mt-30 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.4s">
+              <div class="team-image">
+                <img src="../assets/edited_images/'''+input("picname")+'''.png" alt="Team">
+              </div>
+              <div class="team-content">
+                <h4 class="team-name"><a href="#">'''+input("name")+'''</a></h4>
+                <span class="sub-title">Secretary </span>
+                <ul class="social mt-25">
+                  <li><a href="'''+a[2]+'''" target="_blank"><i class="icon-facebook"></i></a>
+                  </li>
+                  <li><a href="'''+a[1]+'''" target="_blank"><i
+                        class="icon-instagram"></i></a></li>
+                  <li><a href="'''+a[0]+'''" target="_blank"><i
+                        class="icon-linkedin"></i></a></li>
+                </ul>
+              </div>
+            </div> <!-- single team -->
+            </div>
+''')
+
+pyperclip.copy(code[0])
