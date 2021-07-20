@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec 18 20:31:25 2020
+
+@author: dpr
+"""
+
+import os
+new_path=input('new_path')
+os.chdir(new_path)
+changes=input("changes:")
+for i in range(len(os.listdir())):
+    if changes in os.listdir()[i]:
+        j=os.listdir()[i].strip(changes)
+        os.rename(os.listdir()[i], j)
+        print("done")
