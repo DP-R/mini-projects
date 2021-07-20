@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Feb  5 21:50:53 2021
+
+@author: dpr
+"""
+j=1
+import requests,bs4,openpyxl,os
+# for ij in range(1,5):
+#     link= ""+str(ij)
+#     print(link)
+#     res =requests.get(link)
+#     soup = bs4.BeautifulSoup(res.text, 'html.parser')
+#     sweep=soup.body.div
+#     print(sweep)
+os.chdir(r"C:\Users\me18b\Desktop")
+
+wb=openpyxl.load_workbook('new.xlsx',read_only=False)
+sheet=wb['Sheet1']
+
+# print(soup)
+# sweep=soup.body.div[1]
+# sweep=soup.body.div[2].div.div[5].div.div[2].div.div[3].div[2].div.div.div.div[2].div.div.p[1]
+# print(sweep)
+for kim in range(1,5):
+    link=""+str(kim)
+    res=requests.get(link)
+    soup=bs4.BeautifulSoup(res.text,'html.parser')
+    # sheet.cell(row=j,column=2).value='paper'+str(kim)
+    for i in soup.find_all("ol","li","p"):
+        print(i.text,end='')
+        sheet.cell(row=j,column=1).value=str(i.text)
+        j=j+1
+    
+    j=j+1
+wb.save('new.xlsx')
