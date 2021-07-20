@@ -1,0 +1,56 @@
+import pyautogui, random
+import time
+
+formData = [{'name': 'purnendra', 'phone': '1245789635', 'group': 'friend', 'ref': 4, 'comments': 'very friendly'},
+            {'name': 'ram', 'phone': '45698745213', 'group': 'family', 'ref': 4, 'comments': 'n/a'},
+            {'name': 'shyam', 'phone': '45782154423', 'group': 'acquaintance', 'ref': 1, 'comments': 'n/a'},
+            {'name': 'reddy', 'phone': '786445212584', 'group': 'friend', 'ref': 5, 'comments': 'trustworthy'},
+            ]
+
+pyautogui.PAUSE = 0.5
+
+for person in formData:
+
+
+    print('Entering %s info...' % (person['name']))
+    pyautogui.write(['\t', '\t'])
+
+    # Fill out Name field
+    pyautogui.write(person['name'] + '\t')
+
+    # Fill out phone field
+    pyautogui.write(person['phone'] + '\t')
+
+    # Fill out dropdown field
+    if person['group'] == 'friend':
+        pyautogui.write(['down', '\n', '\t'], 0.5)
+    elif person['group'] == 'family':
+        pyautogui.write(['down', 'down', '\n', '\t'], 0.5)
+    elif person['group'] == 'acquaintance':
+        pyautogui.write(['down', 'down', 'down', '\n', '\t'], 0.5)
+    elif person['group'] == 'co-worker':
+        pyautogui.write(['down', 'down', 'down', 'down', '\n', '\t'], 0.5)
+
+    # Fill out references field
+    if person['ref'] == 1:
+        pyautogui.write([' ', '\t'], 0.5)
+    elif person['ref'] == 2:
+        pyautogui.write(['right', '\t'], 0.5)
+    elif person['ref'] == 3:
+        pyautogui.write(['right', 'right', '\t'], 0.5)
+    elif person['ref'] == 4:
+        pyautogui.write(['right', 'right', 'right', '\t'], 0.5)
+    elif person['ref'] == 5:
+        pyautogui.write(['right', 'right', 'right', 'right', '\t'], 0.5)
+
+    pyautogui.write(person['comments'] + '\t')
+
+    # submit on enter with waiting time
+    time.sleep(0.5) 
+    pyautogui.press('enter')
+
+    print('Submitted form.')
+    time.sleep(5)
+
+    #another form parse using link
+    pyautogui.write(['\t', '\n'])
