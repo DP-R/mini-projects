@@ -1,0 +1,33 @@
+
+import openpyxl, smtplib, sys
+
+wb = openpyxl.load_workbook('duesRecords.xlsx')
+sheet = wb.get_sheet_by_name('Sheet1')
+
+lastCol = sheet.get_highest_column()
+latestMonth = sheet.cell(row=1, column=lastCol).value
+
+checker = {}
+# sender status
+for r in range(2, sheet.get_highest_row() + 1):
+    sender = sheet.cell(row=r, column=lastCol).value
+    if sender != 'paid':
+        name = sheet.cell(row=r, column=1).value
+        email = sheet.cell(row=r, column=2).value
+        checker[name] = email
+
+#login
+smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+smtpObj.ehlo()
+smtpObj.starttls()
+smtpObj.login('purnendradatturi@gmail.com', sys.argv[1])
+
+#mailing
+for name, email in checker.items():
+    body = 'Subject: %s sample testing.\nDear %s,\ntoday records show that you have this task to do%s. Please make this done as soon as possible. Thank you!' % (latestMonth, name, latestMonth)
+    print('Sending email to %s...' % email)
+    sendmailStatus = smtpObj.sendmail('purnendradatturi@gmail.com', email, body)
+
+    if sendmailStatus != {}:
+        print('There was a problem sending email to %s: %s' % (email, sendmailStatus))
+smtpObj.quit()
